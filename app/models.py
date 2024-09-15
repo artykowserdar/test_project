@@ -1,6 +1,7 @@
 import enum
 
 from sqlalchemy import (Column, DateTime, Enum, ForeignKey, String, Text)
+from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import select
@@ -86,8 +87,9 @@ class UserActionLog(Base):
 class Notes(Base):
     __tablename__ = "tbl_note"
     id = Column(GUID, primary_key=True, index=True)
-    note_title = Column(String(256), nullable=True)
+    note_title = Column(String(256), nullable=True, index=True)
     note_text = Column(Text(), nullable=True)
+    note_tags = Column(ARRAY(Text), nullable=True, index=True)
     create_user = Column(String(64), ForeignKey(Users.username, deferrable=True), nullable=False)
     state = Column(Enum(EntityState), nullable=False)
     create_ts = Column(DateTime(timezone=False), nullable=False)
