@@ -6,13 +6,13 @@ from fastapi_jwt_auth.exceptions import AuthJWTException
 
 from . import models, schemas
 from .database import engine
-from .routers import users, token
+from .routers import users, token, telegram
 
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title="Taxi admin backend",
-    description="Backend for Taxi",
+    title="Test app backend",
+    description="Backend for Test app",
     version="1.0.0"
 )
 
@@ -59,5 +59,12 @@ app.include_router(
     users.router,
     prefix="/api/users",
     tags=["Users"],
+    responses={404: {"description": "Not Found!"}}
+)
+
+app.include_router(
+    telegram.router,
+    prefix="/api/telegram",
+    tags=["Telegram Bot"],
     responses={404: {"description": "Not Found!"}}
 )

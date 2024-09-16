@@ -1,16 +1,15 @@
 # DEVELOPMENT
-# REDIS_URI = "redis://:137048@172.26.73.168:6379"
-# SQLALCHEMY_DATABASE_URI = "postgresql://taxi:ExpressTaxi.@localhost/db_taxi"
-# SECRET_KEY = "a10c108dd03e3709ab6c0497e6dba56dc9bdbd77f3f0fa00ac57eca21547ffd1"
-# ALGORITHM = "HS256"
-# ACCESS_TOKEN_EXPIRE_MINUTES = 600
-
-# PRODUCTION
-REDIS_URI = "redis://:@localhost:6379"
-SQLALCHEMY_DATABASE_URI = "postgresql://taxi:ExpressTaxi.@216.250.10.47/db_taxi"
+SQLALCHEMY_DATABASE_URI = "postgresql://test_user:TestApp.@127.0.0.1/db_test_app"
 SECRET_KEY = "a10c108dd03e3709ab6c0497e6dba56dc9bdbd77f3f0fa00ac57eca21547ffd1"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+ACCESS_TOKEN_EXPIRE_MINUTES = 600
+
+# PRODUCTION
+# REDIS_URI = "redis://:@localhost:6379"
+# SQLALCHEMY_DATABASE_URI = "postgresql://test_user:TestApp.@127.0.0.1/db_test_app"
+# SECRET_KEY = "a10c108dd03e3709ab6c0497e6dba56dc9bdbd77f3f0fa00ac57eca21547ffd1"
+# ALGORITHM = "HS256"
+# ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
 # Mail
 MAIL_DEFAULT_SENDER = "testapp@local.host"

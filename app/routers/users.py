@@ -180,7 +180,7 @@ def search_active(request: Request, search_text: str = Form(None), db: Session =
     return paginate(user_list["result"])
 
 
-@router.get("/list-user-action-log-by-user/{username}/", response_model=Page[schemas.UserActionLog])
+@router.get("/list-user-action-log-by-user/{username}/", response_model=List[schemas.UserActionLog])
 def get_user_action_log_list_by_username(request: Request, username: str, db: Session = Depends(get_db),
                                          current_user: schemas.Users = Depends(token_access.get_current_active_user),
                                          authorize: AuthJWT = Depends()):

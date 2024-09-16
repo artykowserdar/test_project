@@ -7,7 +7,7 @@ from fastapi_jwt_auth import AuthJWT
 from sqlalchemy.orm import Session
 
 from app import config, models
-from app.accesses import token_access
+from app.accesses import token_access, user_access
 from app.cruds import user_crud
 from app.database import get_db
 from app.lib import get_remote_ip
@@ -61,9 +61,28 @@ async def refresh_token(request: Request, authorize: AuthJWT = Depends(), db: Se
             "role": user.role, "username": user.username, "fullname": user.fullname}
 
 
-@router.get('/protected')
+@router.get('/protected/')
 def protected(authorize: AuthJWT = Depends()):
     authorize.jwt_required()
 
     current_user = authorize.get_jwt_subject()
     return {"user": current_user}
+
+
+@router.post("/add-temp-users/")
+def add_temp_users(request: Request, db: Session = Depends(get_db)):
+    log.debug("%s - Temp users added - %s", get_remote_ip(request))
+    user_access.add_user(db,
+                         username="system",
+                         password="system",
+                         role=models.UserRole.system,
+                         fullname="SYSTEM",
+                         action_user=None)
+    user_access.add_user(db,
+                         username="admin",
+                         password="admin",
+                         role=models.UserRole.admin,
+                         fullname="ADMIN",
+                         action_user=None)
+    db.commit()
+    return True
